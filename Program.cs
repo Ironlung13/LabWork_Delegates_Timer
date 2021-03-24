@@ -23,6 +23,19 @@ namespace LabWork_Delegates_Timer
                     Console.WriteLine("Timer overflow. Skipping Timer.");
                 }
             }
+            foreach(var timer in timers)
+            {
+                timer.UnsubscribeAll();
+            }
+
+            try
+            {
+                array[1].Run(3);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

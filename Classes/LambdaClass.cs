@@ -31,7 +31,14 @@ namespace LabWork_Delegates_Timer.Classes
             {
                 throw new ArgumentException("Can't setup timer using negative time value.");
             }
-            TimerStartEvent(this, time);
+            if (Subscribed)
+            {
+                TimerStartEvent(this, time);
+            }
+            else
+            {
+                throw new InvalidOperationException("Not subscribed to a timer.");
+            }
         }
     }
 }
