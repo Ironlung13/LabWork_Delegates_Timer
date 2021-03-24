@@ -16,7 +16,7 @@ namespace LabWork_Delegates_Timer
                 array[i].Init(timers[i]);
                 try
                 {
-                    array[i].Run(2);
+                    array[i].Run(5);
                 }
                 catch (OverflowException)
                 {
