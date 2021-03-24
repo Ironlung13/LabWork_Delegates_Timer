@@ -44,9 +44,12 @@ namespace LabWork_Delegates_Timer
         private void StartTimer()
         {
             TimerStartEvent(this, new TimerStartEventArgs(_time, Name));
+            //Чтобы постоянно не создавать новые объекты класса TimeLeftEventArgs
+            TimeLeftEventArgs info = new TimeLeftEventArgs(_time, Name);
             while (_time > 0)
             {
-                TimeLeftEvent(this, new TimeLeftEventArgs(_time, Name));
+                info.Time = _time;
+                TimeLeftEvent(this, info);
                 Thread.Sleep(1000);
                 _time -= 1000;
             }

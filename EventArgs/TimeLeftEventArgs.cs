@@ -12,6 +12,6 @@ namespace LabWork_Delegates_Timer
             Name = name;
         }
         public string Name { get; }
-        public int Time { get; }
+        public int Time { get; set; }
     }
 }
