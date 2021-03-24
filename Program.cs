@@ -23,6 +23,7 @@ namespace LabWork_Delegates_Timer
                     Console.WriteLine("Неверный ввод");
                 }
             }
+
             //Запуск таймеров
             Console.WriteLine("Запуск:\n");
             for (int i = 0; i < timers.Length; i++)
@@ -48,6 +49,7 @@ namespace LabWork_Delegates_Timer
             item1.Init(timer);
             item2.Init(timer);
             item1.Run(10);
+            Console.ReadLine();
         }
     }
 }
