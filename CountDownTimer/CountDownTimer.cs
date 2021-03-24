@@ -18,6 +18,7 @@ namespace LabWork_Delegates_Timer
         public event EventHandler<TimerStartEventArgs> TimerStartEvent;
         public event EventHandler<TimeLeftEventArgs> TimeLeftEvent;
         public event EventHandler<TimerEndEventArgs> TimerEndEvent;
+        public event Action<CountDownTimer> UnsubscribeEvent;
 
         public override string ToString()
         {
@@ -55,6 +56,17 @@ namespace LabWork_Delegates_Timer
                 _time -= 1000;
             }
             TimerEndEvent(this, new TimerEndEventArgs(Name));
+        }
+
+        public void UnsubscribeAll()
+        {
+            TimerStartEvent = null;
+            TimerEndEvent = null;
+            TimeLeftEvent = null;
+            if (!(UnsubscribeEvent is null))
+            {
+                UnsubscribeEvent(this);
+            }
         }
     }
 }

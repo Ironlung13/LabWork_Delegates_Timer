@@ -6,13 +6,24 @@ namespace LabWork_Delegates_Timer.Classes
 {
     public class MethodClass : ICountDownNotifier
     {
+        public bool Subscribed { get; private set; } = false;
         public event EventHandler<int> TimerStartEvent;
         void ICountDownNotifier.Init(CountDownTimer timer)
         {
-            timer.TimerStartEvent += OnTimerStart;
-            timer.TimeLeftEvent += OnTimeLeft;
-            timer.TimerEndEvent += OnTimerEnd;
-            TimerStartEvent += timer.SetupTimer;
+            if (!Subscribed)
+            {
+                timer.TimerStartEvent += OnTimerStart;
+                timer.TimeLeftEvent += OnTimeLeft;
+                timer.TimerEndEvent += OnTimerEnd;
+                timer.UnsubscribeEvent += Unsubscribe;
+                TimerStartEvent += timer.SetupTimer;
+
+                Subscribed = true;
+            }
+            else
+            {
+                throw new InvalidOperationException("Already subscribed to timer.");
+            }
         }
 
         void ICountDownNotifier.Run(int time)
@@ -36,6 +47,12 @@ namespace LabWork_Delegates_Timer.Classes
         private void OnTimerEnd(object sender, TimerEndEventArgs e)
         {
             Console.WriteLine($"Метод: Таймер {e.Name} достиг нуля.");
+        }
+
+        private void Unsubscribe(CountDownTimer timer)
+        {
+            TimerStartEvent -= timer.SetupTimer;
+            Subscribed = false;
         }
     }
 }

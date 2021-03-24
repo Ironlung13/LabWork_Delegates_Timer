@@ -6,13 +6,24 @@ namespace LabWork_Delegates_Timer.Classes
 {
     public class LambdaClass : ICountDownNotifier
     {
+        public bool Subscribed { get; private set; } = false;
         public event EventHandler<int> TimerStartEvent;
         void ICountDownNotifier.Init(CountDownTimer timer)
         {
-            timer.TimerStartEvent += (sender, e) => { Console.WriteLine($"Лямбда: Таймер {e.Name} запущен. Время ожидания: {e.Time} секунд."); };
-            timer.TimeLeftEvent += (sender, e) => { Console.WriteLine($"Лямбда: На таймере {e.Name} осталось {e.Time} секунд."); };
-            timer.TimerEndEvent += (sender, e) => { Console.WriteLine($"Лямбда: Таймер {e.Name} достиг нуля."); };
-            TimerStartEvent += timer.SetupTimer;
+            if (!Subscribed)
+            {
+                timer.TimerStartEvent += (sender, e) => { Console.WriteLine($"Лямбда: Таймер {e.Name} запущен. Время ожидания: {e.Time} секунд."); };
+                timer.TimeLeftEvent += (sender, e) => { Console.WriteLine($"Лямбда: На таймере {e.Name} осталось {e.Time} секунд."); };
+                timer.TimerEndEvent += (sender, e) => { Console.WriteLine($"Лямбда: Таймер {e.Name} достиг нуля."); };
+                timer.UnsubscribeEvent += (timer) => { TimerStartEvent -= timer.SetupTimer; Subscribed = false; };
+                TimerStartEvent += timer.SetupTimer;
+
+                Subscribed = true;
+            }
+            else
+            {
+                throw new InvalidOperationException("Already subscribed to timer.");
+            }
         }
         void ICountDownNotifier.Run(int time)
         {
