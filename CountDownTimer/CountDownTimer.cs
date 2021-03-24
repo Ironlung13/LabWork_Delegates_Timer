@@ -19,11 +19,6 @@ namespace LabWork_Delegates_Timer
         public event EventHandler<TimeLeftEventArgs> TimeLeftEvent;
         public event EventHandler<TimerEndEventArgs> TimerEndEvent;
         public event Action<CountDownTimer> UnsubscribeEvent;
-
-        public override string ToString()
-        {
-            return Name;
-        }
         public void SetupTimer(object sender, int time)
         {
             if (!Running)

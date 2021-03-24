@@ -53,7 +53,7 @@ namespace LabWork_Delegates_Timer.Classes
 
         private void OnTimerEnd(object sender, TimerEndEventArgs e)
         {
-            Console.WriteLine($"Метод: Таймер {e.Name} достиг нуля.");
+            Console.WriteLine($"Метод: Таймер {e.Name} достиг нуля.\n");
         }
 
         private void Unsubscribe(CountDownTimer timer)

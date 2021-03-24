@@ -14,7 +14,7 @@ namespace LabWork_Delegates_Timer.Classes
             {
                 timer.TimerStartEvent += delegate (object sender, TimerStartEventArgs e) { Console.WriteLine($"Анонимный: Таймер {e.Name} запущен. Время ожидания: {e.Time} секунд."); };
                 timer.TimeLeftEvent += delegate (object sender, TimeLeftEventArgs e) { Console.WriteLine($"Анонимный: На таймере {e.Name} осталось {e.Time} секунд."); };
-                timer.TimerEndEvent += delegate (object sender, TimerEndEventArgs e) { Console.WriteLine($"Анонимный: Таймер {e.Name} достиг нуля."); };
+                timer.TimerEndEvent += delegate (object sender, TimerEndEventArgs e) { Console.WriteLine($"Анонимный: Таймер {e.Name} достиг нуля.\n"); };
                 timer.UnsubscribeEvent += delegate (CountDownTimer timer) { TimerStartEvent -= timer.SetupTimer; Subscribed = false; };
                 TimerStartEvent += timer.SetupTimer;
 
