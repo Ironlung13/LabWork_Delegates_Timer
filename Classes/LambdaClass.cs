@@ -7,7 +7,9 @@ namespace LabWork_Delegates_Timer.Classes
     public class LambdaClass : ICountDownNotifier
     {
         public bool Subscribed { get; private set; } = false;
+        
         public event EventHandler<int> TimerStartEvent;
+        
         void ICountDownNotifier.Init(CountDownTimer timer)
         {
             if (!Subscribed)
@@ -25,6 +27,7 @@ namespace LabWork_Delegates_Timer.Classes
                 throw new InvalidOperationException("Already subscribed to timer.");
             }
         }
+        
         void ICountDownNotifier.Run(int time)
         {
             if (time < 0)
