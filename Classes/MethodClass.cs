@@ -7,7 +7,9 @@ namespace LabWork_Delegates_Timer.Classes
     public class MethodClass : ICountDownNotifier
     {
         public bool Subscribed { get; private set; } = false;
+        
         public event EventHandler<int> TimerStartEvent;
+        
         void ICountDownNotifier.Init(CountDownTimer timer)
         {
             if (!Subscribed)
@@ -22,7 +24,7 @@ namespace LabWork_Delegates_Timer.Classes
             }
             else
             {
-                throw new InvalidOperationException("Already subscribed to timer.");
+                throw new InvalidOperationException("Already subscribed to a timer.");
             }
         }
 
@@ -41,6 +43,7 @@ namespace LabWork_Delegates_Timer.Classes
                 throw new InvalidOperationException("Not subscribed to a timer.");
             }
         }
+        
         private void OnTimerStart(object sender, TimerStartEventArgs e)
         {
             Console.WriteLine($"Метод: Таймер {e.Name} запущен. Время ожидания: {e.Time} секунд.");
